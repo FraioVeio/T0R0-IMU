@@ -5,22 +5,22 @@
 
 void IMUMET_init();
 void IMUMET_accelerometerCalibration(int seconds);
-double MUMET_accX();
-double IMUMET_accY();
-double IMUMET_accZ();
-double IMUMET_gyDegX();
-double IMUMET_gyDegY();
-double IMUMET_gyDegZ();
-double IMUMET_gyRadX();
-double IMUMET_gyRadY();
-double IMUMET_gyRadZ();
-double IMUMET_magX();
-double IMUMET_magY();
-double IMUMET_magZ();
+float IMUMET_accX();
+float IMUMET_accY();
+float IMUMET_accZ();
+float IMUMET_gyDegX();
+float IMUMET_gyDegY();
+float IMUMET_gyDegZ();
+float IMUMET_gyRadX();
+float IMUMET_gyRadY();
+float IMUMET_gyRadZ();
+float IMUMET_magX();
+float IMUMET_magY();
+float IMUMET_magZ();
 
 
-double IMUMET_accDivider;
-double IMUMET_gyDivider;
+float IMUMET_accDivider;
+float IMUMET_gyDivider;
 
 
 #define IMUMET_g 9.80665

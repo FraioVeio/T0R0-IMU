@@ -13,4 +13,6 @@ int IMU_i2cReadReg8(int fd, int reg);
 
 int IMU_i2cWriteReg8(int fd, int reg, int data);
 
+long IMU_micros();
+
 #endif

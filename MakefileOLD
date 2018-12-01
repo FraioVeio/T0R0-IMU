@@ -1,2 +1,0 @@
-IMU: maintest.c IMU_raw.h IMU_raw.c IMU_metric.h IMU_metric.c IMU_i2c.c IMU_i2c.h
-	gcc -lwiringPi -lm -o main maintest.c IMU_raw.h IMU_raw.c IMU_metric.h IMU_metric.c IMU_i2c.c IMU_i2c.h
