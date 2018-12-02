@@ -1,15 +1,18 @@
 
 extern "C" {
 #include "IMU_metric.h"
+#include "quaternions.h"
 }
 #include "MahonyAHRS.h"
 #include <stdio.h>
+#include <stdlib.h>
 #include <math.h>
+
 
 int main() {
     IMUMET_init();
     printf("Fermo che calibro gyro\n");
-    IMURAW_gyroCalibration(5);
+    IMURAW_gyroCalibration(2);
     printf("OK ora muoviti su tutti gli assi\n");
     IMURAW_magnetometerCalibration(10);
 
@@ -17,7 +20,11 @@ int main() {
     filter.begin(100);
 
     long microold = IMU_micros();
+    int count = 0;
 
+    float *qZero = quaternionZero();
+
+    printf("Posizionati allo 0 in 5 secondi\n");
     while(1) {
         float gy[3], acc[3], mag[3];
 
@@ -33,6 +40,16 @@ int main() {
         float micro;
 
         filter.update(gy[0], gy[1], gy[2], acc[0], acc[1], acc[2], mag[0], mag[1], mag[2]);
+        
+
+        if(count == 3000) {
+            printf("Zero salvato\n");
+            float *raw = filter.getQuaternionRaw();
+            quaternionInv(raw);
+            filter.setZero(raw);
+
+            free(raw);
+        }
 
         float roll, pitch, yaw;
 
@@ -43,6 +60,8 @@ int main() {
         printf("%f\t\t%f\t\t%f\n", roll, pitch, yaw);
 
         microold = micro;
+
+        count ++;
     }
 
     return 0;

@@ -51,6 +51,8 @@ Mahony::Mahony()
 	integralFBz = 0.0f;
 	anglesComputed = 0;
 	invSampleFreq = 1.0f / DEFAULT_SAMPLE_FREQ;
+
+	qZero = quaternionZero();
 }
 
 void Mahony::update(float gx, float gy, float gz, float ax, float ay, float az, float mx, float my, float mz)
@@ -262,12 +264,44 @@ float Mahony::invSqrt(float x)
 
 void Mahony::computeAngles()
 {
-	roll = atan2f(q0*q1 + q2*q3, 0.5f - q1*q1 - q2*q2);
-	pitch = asinf(-2.0f * (q1*q3 - q0*q2));
-	yaw = atan2f(q1*q2 + q0*q3, 0.5f - q2*q2 - q3*q3);
+	float *q = getQuaternion();
+	roll = atan2f(q[0]*q[1] + q[2]*q[3], 0.5f - q[1]*q[1] - q[2]*q[2]);
+	pitch = asinf(-2.0f * (q[1]*q[3] - q[0]*q[2]));
+	yaw = atan2f(q[1]*q[2] + q[0]*q[3], 0.5f - q[2]*q[2] - q[3]*q[3]);
+
+	free(q);	
+
 	anglesComputed = 1;
 }
 
+float *Mahony::getQuaternion() {
+	float *qr = getQuaternionRaw();
+	
+    float *q = quaternionMult(qZero, qr);
+
+	free(qr);
+
+	return q;
+}
+
+float *Mahony::getQuaternionRaw() {
+	float *qr = (float*) calloc(4, sizeof(float));
+	qr[0] = q0;
+	qr[1] = q1;
+	qr[2] = q2;
+	qr[3] = q3;
+
+	return qr;
+}
+
+void Mahony::setZero(float *q) {
+	qZero = (float*) calloc(4, sizeof(float));
+
+	qZero[0] = q[0];
+	qZero[1] = q[1];
+	qZero[2] = q[2];
+	qZero[3] = q[3];
+}
 
 //============================================================================================
 // END OF CODE

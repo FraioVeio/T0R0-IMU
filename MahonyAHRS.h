@@ -13,6 +13,10 @@
 #ifndef MahonyAHRS_h
 #define MahonyAHRS_h
 #include <math.h>
+#include <stdlib.h>
+extern "C" {
+	#include "quaternions.h"
+}
 
 //--------------------------------------------------------------------------------------------
 // Variable declaration
@@ -28,16 +32,20 @@ private:
 	static float invSqrt(float x);
 	void computeAngles();
 
+	float q0, q1, q2, q3;	// quaternion of sensor frame relative to auxiliary frame
+	float *qZero;
+
 //-------------------------------------------------------------------------------------------
 // Function declarations
 
 public:
-	float q0, q1, q2, q3;	// quaternion of sensor frame relative to auxiliary frame
-	
 	Mahony();
 	void begin(float sampleFrequency) { invSampleFreq = 1.0f / sampleFrequency; }
 	void update(float gx, float gy, float gz, float ax, float ay, float az, float mx, float my, float mz);
 	void updateIMU(float gx, float gy, float gz, float ax, float ay, float az);
+	float *getQuaternion();
+	float *getQuaternionRaw();
+	void setZero(float *q);
 	float getRoll() {
 		if (!anglesComputed) computeAngles();
 		return roll * 57.29578f;
