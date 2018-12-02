@@ -131,6 +131,7 @@ short IMURAW_magZ() {
 
 // Attenzione, non sto usando la funzione offset dell'imu xk non funge, guarda perchè!
 void IMURAW_gyroCalibration(int seconds) {
+    IMURAW_gyoffX = IMURAW_gyoffY = IMURAW_gyoffZ = 0;
     long microin = micros();
 
 
@@ -155,6 +156,7 @@ void IMURAW_gyroCalibration(int seconds) {
 }
 
 void IMURAW_magnetometerCalibration(int seconds) {
+    IMURAW_magoffX = IMURAW_magoffY = IMURAW_magoffZ = 0;
     long microin = micros();
 
     int maxX = -65536, maxY = -65536, maxZ = -65536;
