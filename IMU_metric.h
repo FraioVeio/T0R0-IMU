@@ -21,7 +21,7 @@ float IMUMET_magZ();
 
 float IMUMET_accDivider;
 float IMUMET_gyDivider;
-
+float IMUMET_gyMultiplierX, IMUMET_gyMultiplierY, IMUMET_gyMultiplierZ;
 
 #define IMUMET_g 9.80665
 

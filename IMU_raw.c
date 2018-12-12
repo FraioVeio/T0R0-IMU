@@ -30,7 +30,7 @@ void IMURAW_initialize() {
     char asax = IMURAW_readAK8963Register(0x10);
     char asay = IMURAW_readAK8963Register(0x11);
     char asaz = IMURAW_readAK8963Register(0x12);
-    IMURAW_magScaleX = ((asax-128)*0.5)/128.0+1;
+    IMURAW_magScaleX = ((asax-128)*0.5)/128.0+1;    // Mag scale not used because inaccurate
     IMURAW_magScaleY = ((asax-128)*0.5)/128.0+1;
     IMURAW_magScaleZ = ((asax-128)*0.5)/128.0+1;
 
@@ -46,12 +46,17 @@ void IMURAW_initialize() {
     IMURAW_readAK8963Registers(0x03, 7);
 
 
-    IMURAW_magoffX=201;
-    IMURAW_magoffY=124;
-    IMURAW_magoffZ=-111;
-    IMURAW_gyoffX=186;
-    IMURAW_gyoffY=73;
-    IMURAW_gyoffZ=-832;
+    IMURAW_magoffX=-247;
+    IMURAW_magoffY=118;
+    IMURAW_magoffZ=81;
+    IMURAW_gyoffX=0;
+    IMURAW_gyoffY=0;
+    IMURAW_gyoffZ=0;
+
+    IMURAW_magScaleX = 0.9205;
+    IMURAW_magScaleY = 1.0221;
+    IMURAW_magScaleZ = 1.0769;
+    
 }
 
 void IMURAW_accRange(unsigned char mode) {

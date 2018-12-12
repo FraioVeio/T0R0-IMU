@@ -6,10 +6,14 @@ void IMUMET_init() {
     IMURAW_connect();
     IMURAW_initialize();
     IMURAW_accRange(IMU_4g);
-    IMURAW_gyRange(IMU_500dps);
+    IMURAW_gyRange(IMU_1000dps);
 
     IMUMET_accDivider = 801.543262;
-    IMUMET_gyDivider = 65.536;
+    IMUMET_gyDivider = 32.768;
+
+    IMUMET_gyMultiplierX = 1;
+    IMUMET_gyMultiplierY = 0.85;
+    IMUMET_gyMultiplierZ = 1;
 }
 
 void IMUMET_accelerometerCalibration(int seconds) {
@@ -45,15 +49,15 @@ float IMUMET_accZ() {
 }
 
 float IMUMET_gyDegX() {
-    return (float) IMURAW_gyX()/IMUMET_gyDivider;
+    return (float) IMURAW_gyX()/IMUMET_gyDivider*IMUMET_gyMultiplierX;
 }
 
 float IMUMET_gyDegY() {
-    return (float) IMURAW_gyY()/IMUMET_gyDivider;
+    return (float) IMURAW_gyY()/IMUMET_gyDivider*IMUMET_gyMultiplierY;
 }
 
 float IMUMET_gyDegZ() {
-    return (float) IMURAW_gyZ()/IMUMET_gyDivider;
+    return (float) IMURAW_gyZ()/IMUMET_gyDivider*IMUMET_gyMultiplierZ;
 }
 
 float IMUMET_gyRadX() {

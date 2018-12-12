@@ -15,3 +15,7 @@ int IMU_i2cWriteReg8(int fd, int reg, int data) {
 long IMU_micros() {
     return micros();
 }
+
+void IMU_delay(int millis) {
+    delay(millis);
+}

@@ -27,9 +27,9 @@
 //-------------------------------------------------------------------------------------------
 // Definitions
 
-#define DEFAULT_SAMPLE_FREQ	512.0f	// sample frequency in Hz
-#define twoKpDef	(2.0f * 0.5f)	// 2 * proportional gain
-#define twoKiDef	(2.0f * 0.0f)	// 2 * integral gain
+#define DEFAULT_SAMPLE_FREQ	100.0f	// sample frequency in Hz
+#define twoKpDef	(4.0f * 0.5f)	// 2 * proportional gain
+#define twoKiDef	(2.0f * 0/*.005f*/)	// 2 * integral gain
 
 
 //============================================================================================
@@ -295,12 +295,11 @@ float *Mahony::getQuaternionRaw() {
 }
 
 void Mahony::setZero(float *q) {
-	qZero = (float*) calloc(4, sizeof(float));
-
 	qZero[0] = q[0];
 	qZero[1] = q[1];
 	qZero[2] = q[2];
 	qZero[3] = q[3];
+	quaternionInv(qZero);
 }
 
 //============================================================================================
