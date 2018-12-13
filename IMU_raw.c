@@ -46,16 +46,16 @@ void IMURAW_initialize() {
     IMURAW_readAK8963Registers(0x03, 7);
 
 
-    IMURAW_magoffX=-247;
-    IMURAW_magoffY=118;
-    IMURAW_magoffZ=81;
+    IMURAW_magoffX=-217;
+    IMURAW_magoffY=105;
+    IMURAW_magoffZ=60;
     IMURAW_gyoffX=0;
     IMURAW_gyoffY=0;
     IMURAW_gyoffZ=0;
 
-    IMURAW_magScaleX = 0.9205;
-    IMURAW_magScaleY = 1.0221;
-    IMURAW_magScaleZ = 1.0769;
+    IMURAW_magScaleX = 1.0400;
+    IMURAW_magScaleY = 1.1484;
+    IMURAW_magScaleZ = 1.2279;
     
 }
 
